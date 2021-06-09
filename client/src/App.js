@@ -1,11 +1,12 @@
 import React, {useEffect} from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import PageRender from "./PageRender";
 import Login from "./pages/login"
 import Home from "./pages/home"
 import Alert from './components/alert/Alert'
 import { useSelector, useDispatch} from 'react-redux'
 import {refreshToken} from './redux/actions/authAction'
+import Header from "./components/Header";
 
 function App() {
   const { auth } = useSelector(state => state)
@@ -21,6 +22,7 @@ function App() {
       <input type="checkbox" id="theme" />
       <div className="App">
         <div className="main">
+          { auth.token && <Header />}
           <Route exact path="/" component={auth.token ? Home : Login} />
           <Route exact path="/:page" component={PageRender} />
           <Route exact path="/:page/:id" component={PageRender} />
